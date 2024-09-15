@@ -72,18 +72,8 @@ class User(db.Model):
 
     @staticmethod
     def get_user(username):
-        if vuln: 
-            user_query = f"SELECT * FROM users WHERE username = '{username}'"
-            print(user_query)
-            query = vuln_conn.cursor().executescript(user_query)
-            ret = query.fetchone()
-            if ret:
-                fin_query = '{"username": "%s", "email": "%s"}' % (ret[1], ret[3])
-            else:
-                fin_query = None
-        else:
-            fin_query = User.query.filter_by(username=username).first()
-        return fin_query
+        #Week 2 - this used to be an entry for SQL injection, we should be using ORM to create query using parameters
+        return User.query.filter_by(username=username).first()
 
     @staticmethod
     def register_user(username, password, email, admin=False):
