@@ -45,6 +45,7 @@ class User(db.Model):
     def decode_auth_token(auth_token):
         try:
             if vuln:
+                #Week 3- This is a security issue detected by SonarCube (verify=False)
                 payload = jwt.decode(auth_token, vuln_app.app.config.get('SECRET_KEY'), algorithms=["HS256","none"], options={"verify_signature": False}, verify=False )
             else:
                 payload = jwt.decode(auth_token, vuln_app.app.config.get('SECRET_KEY'), algorithms=["HS256"])
