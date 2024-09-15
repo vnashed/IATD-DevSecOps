@@ -131,7 +131,7 @@ jobs:
 
 #There were modifications in this step that were made due to jq being removed in aws-cli - https://github.com/Azure/azure-cli/issues/29830
   submit_results:
-    needs: [build]
+    needs: [build, dast]
     #adding this to not submit results until I've merged things into main (so my test branches for the week don't submit)
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
