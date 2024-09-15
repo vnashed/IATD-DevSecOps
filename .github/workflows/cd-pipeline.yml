@@ -5,6 +5,8 @@ on: workflow_dispatch
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    #Don't deploy unless on the main branch
+    if: github.ref == 'refs/heads/main'    
     steps:
       - uses: azure/login@v1
         with:
@@ -23,7 +25,8 @@ jobs:
 #There were modifications in this step that were made due to jq being removed in aws-cli - https://github.com/Azure/azure-cli/issues/29830
   submit_results:
     needs: [deploy]
-    if: true
+    #Don't submit results unless on the main branch
+    if: github.ref == 'refs/heads/main'    
     runs-on: ubuntu-latest
     steps:
       - uses: azure/login@v1
