@@ -51,10 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      #temporarily installing jq until https://github.com/Azure/azure-cli/issues/29830 is released
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install -y jq
-
+      
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -64,7 +61,9 @@ jobs:
         uses: azure/CLI@v1
         with:
           azcliversion: latest
+          #temporarily installing jq until https://github.com/Azure/azure-cli/issues/29830 is released
           inlineScript: |
+            sudo apt-get update && sudo apt-get install -y jq
             ACCESS_TOKEN=$(az account get-access-token | jq -r .accessToken)
             echo "azureAccessToken=$ACCESS_TOKEN" >> "$GITHUB_OUTPUT"
       - name: Upload reports
