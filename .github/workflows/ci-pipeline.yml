@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    needs: sonarqube
+    needs: [sonarqube, dast]
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -70,7 +70,7 @@ jobs:
           name: test-results
           path: junit/test-results.xml
   dast:
-    needs: [test, sonarqube]
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -131,7 +131,7 @@ jobs:
 
 #There were modifications in this step that were made due to jq being removed in aws-cli - https://github.com/Azure/azure-cli/issues/29830
   submit_results:
-    needs: [build, dast]
+    needs: build
     #adding this to not submit results until I've merged things into main (so my test branches for the week don't submit)
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
