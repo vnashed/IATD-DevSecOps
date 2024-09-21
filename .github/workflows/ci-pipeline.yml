@@ -112,8 +112,7 @@ jobs:
           path: report_json.json
 
   image-scan:
-    needs: [test]
-    if: true
+    needs: test
     runs-on: ubuntu-latest
     steps:
         - name: Scan image
@@ -131,7 +130,7 @@ jobs:
             path: ${{ steps.image-scan.outputs.json }}
 
   build:
-    needs: [sonarqube, dast]
+    needs: [sonarqube, dast, security_gate]
     runs-on: ubuntu-latest
     steps:
       - name: Set up QEMU
@@ -200,7 +199,7 @@ jobs:
   submit_reports:
     needs: [test, sonarqube, dast, build]
     #adding this to not submit results until I've merged things into main (so my test branches for the week don't submit)
-    if: github.ref == 'refs/heads/main'
+    #if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/download-artifact@v4
