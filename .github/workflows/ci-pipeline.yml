@@ -28,6 +28,8 @@ jobs:
 
   sonarqube:
     needs: test
+    #sonarqube costs money - avoiding running unless on main
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -131,7 +133,6 @@ jobs:
 
   build:
     #needs: security_gate
-    needs: [dast]
     runs-on: ubuntu-latest
     steps:
       -
