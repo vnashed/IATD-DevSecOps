@@ -27,8 +27,6 @@ jobs:
           path: junit/test-results.xml
 
   sonarqube:
-    # temporarily setting so that it doesn't run for every step of week 5
-    if: false
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -54,8 +52,6 @@ jobs:
           path: sonarqube-report.json
 
   dast:
-    # temporarily setting so that it doesn't run for every step of week 5
-    if: false
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -116,8 +112,6 @@ jobs:
           path: report_json.json
 
   image-scan:
-    # temporarily setting so that it doesn't run for every step of week 5
-    if: false
     needs: test
     runs-on: ubuntu-latest
     steps:
