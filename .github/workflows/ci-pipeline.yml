@@ -162,6 +162,7 @@ jobs:
       - name: Sign the images with GitHub OIDC Token
         env:
           IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/devops-labs:latest
+          COSIGN_EXPERIMENTAL: "true" 
         run: |
           cosign sign --yes ${IMAGE}
 
