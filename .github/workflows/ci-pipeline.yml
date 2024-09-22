@@ -134,6 +134,8 @@ jobs:
   build:
     #needs: security_gate
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
     steps:
       -
         name: Set up QEMU
@@ -162,7 +164,6 @@ jobs:
       - name: Sign the images with GitHub OIDC Token
         env:
           IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/devops-labs:latest
-          COSIGN_EXPERIMENTAL: "true" 
         run: |
           cosign sign --yes ${IMAGE}
 
