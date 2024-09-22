@@ -131,7 +131,7 @@ jobs:
 
   build:
     #needs: security_gate
-    needs: []
+    needs: [dast]
     runs-on: ubuntu-latest
     steps:
       -
